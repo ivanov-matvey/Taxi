@@ -6,8 +6,10 @@
 </head>
 <body>
   <h1>Регистрация</h1>
-  <form action="register.php" method="POST">
-    <input type="text" name="username" placeholder="Логин" required><br>
+  <form id="registerForm">
+    <input type="text" name="name" placeholder="Имя" required><br>
+    <input type="date" name="birthday" placeholder="Дата рождения" required><br>
+    <input type="text" name="phone" placeholder="Номер телефона" required><br>
     <input type="password" name="password" placeholder="Пароль" required><br>
 
     <label for="role">Выберите роль:</label>
@@ -18,5 +20,7 @@
 
     <button type="submit">Зарегистрироваться</button>
   </form>
+
+  <script src="js/register.js"></script>
 </body>
 </html>
