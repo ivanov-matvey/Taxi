@@ -90,7 +90,7 @@ class RegisterController
             echo json_encode([
                 'success' => true,
                 'message' => 'Регистрация успешна!',
-                'redirect' => ($role === 'client') ? '/client_dashboard.html' : '/driver_dashboard.html'
+                'redirect' => '/login.html'
             ]);
         } catch (PDOException $e) {
             error_log("Ошибка при регистрации: " . $e->getMessage());
