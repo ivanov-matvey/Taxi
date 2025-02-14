@@ -1,10 +1,10 @@
-document.getElementById("registerForm").addEventListener("submit", async function (e) {
+document.getElementById("loginForm").addEventListener("submit", async function (e) {
     e.preventDefault();
 
     const formData = new FormData(this);
 
     try {
-        const response = await fetch('server/register.php', {
+        const response = await fetch('server/login.php', {
             method: 'POST',
             body: formData,
         });
@@ -20,7 +20,7 @@ document.getElementById("registerForm").addEventListener("submit", async functio
         const data = JSON.parse(text);
 
         if (data.success) {
-            console.log("Регистрация успешна");
+            console.log("Авторизация успешна");
 
             if (data.redirect) {
                 window.location.href = data.redirect;

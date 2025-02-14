@@ -3,7 +3,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-const DB_SERVER = 'localhost';
+const DB_SERVER = 'taxi.localhost';
 const DB_USERNAME = 'root';
 const DB_PASSWORD = '';
 const DB_NAME = 'taxi';
