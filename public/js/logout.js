@@ -1,18 +1,20 @@
-document.getElementById("logoutButton").addEventListener("click", async function () {
+document.getElementById('logoutButton').addEventListener('click', async function (e) {
     try {
-        const response = await fetch('/server/logout.php', {
+        const response = await fetch('api/user/logout', {
             method: 'POST',
         });
 
-        const data = await response.json();
+        console.log('Response Status:', response.status);
+        const data = JSON.parse(await response.text());
 
         if (data.success) {
-            console.log("Выход успешен.");
-            window.location.href = '/login.html';
-        } else {
-            console.error("Ошибка при выходе: " + data.error);
+            console.log('Logout successful.');
+
+            if (data.redirect) {
+                window.location.href = data.redirect;
+            }
         }
     } catch (error) {
-        console.error("Ошибка при отправке запроса на выход:", error);
+        console.error(error);
     }
 });
