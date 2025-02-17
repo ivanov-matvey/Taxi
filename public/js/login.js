@@ -1,35 +1,33 @@
-document.getElementById("loginForm").addEventListener("submit", async function (e) {
+document.getElementById('loginForm').addEventListener('submit', async function (e) {
     e.preventDefault();
 
     const formData = new FormData(this);
+    const formObject = {};
+
+    formData.forEach((value, key) => {
+        formObject[key] = value;
+    });
 
     try {
-        const response = await fetch('server/login.php', {
+        const response = await fetch('api/user/login', {
             method: 'POST',
-            body: formData,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formObject),
         });
 
-        console.log('Статус ответа:', response.status);
-
-        if (!response.ok) {
-            throw new Error("Ошибка при запросе. Статус: ${response.status}");
-        }
-
-        const text = await response.text();
-
-        const data = JSON.parse(text);
+        console.log('Response Status:', response.status);
+        const data = JSON.parse(await response.text());
 
         if (data.success) {
-            console.log("Авторизация успешна");
+            console.log('Authorization successful.');
 
             if (data.redirect) {
                 window.location.href = data.redirect;
             }
-        } else {
-            console.log("Ошибка: " + data.error);
         }
     } catch (error) {
-        console.error("Ошибка при отправке запроса или парсинге JSON:", error);
-        alert("Произошла ошибка при отправке запроса.");
+        console.error(error);
     }
 });

@@ -1,9 +1,9 @@
 <?php
-namespace Models;
+namespace app\models;
 
 require_once 'User.php';
 
-class Client
+class Driver
 {
     private User $user;
     private string $name;
@@ -58,4 +58,3 @@ class Client
         $this->rate = $rate;
     }
 }
-
