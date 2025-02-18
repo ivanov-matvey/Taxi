@@ -130,6 +130,7 @@ class UserController
             }
 
             $_SESSION['user_id'] = $user['id'];
+            $_SESSION['role'] = $user['role'];
             $_SESSION['is_authenticated'] = true;
 
             $updateStmt = $this->conn->prepare("UPDATE Users SET is_authenticated = TRUE WHERE id = :id");
@@ -140,7 +141,7 @@ class UserController
                 'success' => true,
                 'message' => 'Authorization successful.',
                 'role' => $user['role'],
-                'redirect' => $user['role'] === 'client' ? '/client_dashboard.html' : '/driver_dashboard.html'
+                'redirect' => $user['role'] === 'client' ? '/client/dashboard.html' : '/driver/dashboard.html'
             ]);
         } catch (PDOException $e) {
             error_log('Authorization error: ' . $e->getMessage());
@@ -165,6 +166,7 @@ class UserController
 
             session_unset();
             session_destroy();
+            session_write_close();
 
             echo json_encode([
                 'success' => true,

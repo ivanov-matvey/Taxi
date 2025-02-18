@@ -1,8 +1,13 @@
 <?php
 
+use app\Auth;
 use app\controllers\UserController;
 
 require_once __DIR__ . '/../app/controllers/UserController.php';
+require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../app/auth.php';
+
+session_start();
 
 $db = new Database();
 $conn = $db->getConnection();
@@ -14,6 +19,7 @@ $controller = $requestUri[1] ?? '';
 $action = $requestUri[2] ?? '';
 
 $userController = new UserController($conn);
+$auth = new Auth();
 
 switch ($controller) {
     case 'user':
@@ -39,6 +45,11 @@ switch ($controller) {
             default:
                 echo json_encode(['error' => 'Method not allowed']);
                 break;
+        }
+        break;
+    case 'auth':
+        if ($action == 'check-auth') {
+            $auth->checkAuth();
         }
         break;
     default:
