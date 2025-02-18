@@ -1,11 +1,7 @@
 document.getElementById('logoutButton').addEventListener('click', async function (e) {
     try {
-        const response = await fetch('api/user/logout', {
-            method: 'POST',
-        });
-
-        console.log('Response Status:', response.status);
-        const data = JSON.parse(await response.text());
+        const response = await fetch('/api/user/logout');
+        const data = await response.json();
 
         if (data.success) {
             console.log('Logout successful.');
