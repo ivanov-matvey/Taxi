@@ -1,9 +1,11 @@
 <?php
 
 use app\Auth;
+use app\controllers\OrderController;
 use app\controllers\UserController;
 
 require_once __DIR__ . '/../app/controllers/UserController.php';
+require_once __DIR__ . '/../app/controllers/OrderController.php';
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../app/auth.php';
 
@@ -19,6 +21,7 @@ $controller = $requestUri[1] ?? '';
 $action = $requestUri[2] ?? '';
 
 $userController = new UserController($conn);
+$orderController = new OrderController($conn);
 $auth = new Auth();
 
 switch ($controller) {
@@ -50,6 +53,15 @@ switch ($controller) {
     case 'auth':
         if ($action == 'check-auth') {
             $auth->checkAuth();
+        }
+        break;
+    case 'order':
+        if ($action == 'list') {
+            $orderController->getOrders();
+        } else if ($action == 'form-data') {
+            $orderController->getFormData();
+        } else if ($action == 'add') {
+            $orderController->addOrder();
         }
         break;
     default:

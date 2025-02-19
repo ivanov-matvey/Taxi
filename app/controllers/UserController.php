@@ -65,7 +65,7 @@ class UserController
             $user->setId((int)$userId);
 
             if ($role === 'client') {
-                $client = new Client($user, $name, $birthday);
+                $client = new Client(null, $user, $name, $birthday);
                 $clientName = $client->getName();
                 $clientBirthday = $client->getBirthday();
                 $clientRate = $client->getRate();
@@ -77,7 +77,7 @@ class UserController
                 $stmt->bindParam(':rate', $clientRate);
                 $stmt->execute();
             } elseif ($role === 'driver') {
-                $driver = new Driver($user, $name, $birthday);
+                $driver = new Driver(null, $user, $name, $birthday);
                 $driverName = $driver->getName();
                 $driverBirthday = $driver->getBirthday();
                 $driverRate = $driver->getRate();

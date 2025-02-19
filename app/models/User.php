@@ -1,7 +1,9 @@
 <?php
 namespace app\models;
 
-class User
+use JsonSerializable;
+
+class User implements JsonSerializable
 {
     protected ?int $id;
     protected string $phone;
@@ -9,13 +11,29 @@ class User
     protected string $role;
     protected bool $is_authenticated;
 
-    public function __construct(?int $id, string $phone, string $password, string $role, bool $is_authenticated)
-    {
+    public function __construct(
+        ?int $id,
+        string $phone,
+        string $password,
+        string $role,
+        bool $is_authenticated
+    ) {
         $this->id = $id;
         $this->phone = $phone;
         $this->password = password_hash($password, PASSWORD_BCRYPT);
         $this->role = $role;
         $this->is_authenticated = $is_authenticated;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'phone' => $this->phone,
+            'password' => $this->password,
+            'role' => $this->role,
+            'is_authenticated' => $this->is_authenticated,
+        ];
     }
 
     public function getId(): ?int
